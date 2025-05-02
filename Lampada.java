@@ -1,37 +1,25 @@
-public class Lampada {
-    private boolean ligada;
+public class Lampada extends Dispositivo implements Conectavel {
 
-    public Lampada() {
-        this.ligada = false; // começa desligada
+    public Lampada(int id, String nome) {
+        super(id, nome);
     }
 
-    public void ligar() {
-        if (!ligada) {
-            ligada = true;
-            System.out.println("A lâmpada foi ligada.");
+    @Override
+    public String conectar() {
+        return nome + " conectada à rede elétrica.";
+    }
+
+    @Override
+    public String desconectar() {
+        return nome + " desconectada da rede elétrica.";
+    }
+
+    @Override
+    public String executarAcao() {
+        if (ligado) {
+            return nome + ": Luz acesa!";
         } else {
-            System.out.println("A lâmpada já está ligada.");
-        }
-    }
-
-    public void desligar() {
-        if (ligada) {
-            ligada = false;
-            System.out.println("A lâmpada foi desligada.");
-        } else {
-            System.out.println("A lâmpada já está desligada.");
-        }
-    }
-
-    public boolean isLigada() {
-        return ligada;
-    }
-
-    public void mostrarEstado() {
-        if (ligada) {
-            System.out.println("A lâmpada está ligada.");
-        } else {
-            System.out.println("A lâmpada está desligada.");
+            return nome + ": Está desligada, não pode acender.";
         }
     }
 }

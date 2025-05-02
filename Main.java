@@ -2,37 +2,46 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Lampada lampada = new Lampada();
-        Scanner scanner = new Scanner(System.in);
-        int opcao;
+        Lampada lampada = new Lampada(1, "Lâmpada do Quarto");
+        DispositivoService service = new DispositivoService();
+        Conectavel conexao = lampada;
 
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(conexao.conectar());
+
+        int opcao;
         do {
-            System.out.println("\nMenu:");
-            System.out.println("1 - Ligar lâmpada");
-            System.out.println("2 - Desligar lâmpada");
-            System.out.println("3 - Mostrar estado");
-            System.out.println("0 - Sair");
-            System.out.print("Escolha: ");
+            System.out.println("\n--- MENU ---");
+            System.out.println("1 - Ligar");
+            System.out.println("2 - Desligar");
+            System.out.println("3 - Executar Ação");
+            System.out.println("4 - Desconectar e Sair");
+            System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
 
+            String resposta;
             switch (opcao) {
                 case 1:
-                    lampada.ligar();
+                    resposta = service.ligarDispositivo(lampada);
                     break;
                 case 2:
-                    lampada.desligar();
+                    resposta = service.desligarDispositivo(lampada);
                     break;
                 case 3:
-                    lampada.mostrarEstado();
+                    resposta = service.executarAcao(lampada);
                     break;
-                case 0:
-                    System.out.println("Saindo...");
+                case 4:
+                    resposta = conexao.desconectar();
                     break;
                 default:
-                    System.out.println("Opção inválida!");
+                    resposta = "Opção inválida!";
             }
-        } while (opcao != 0);
+
+            System.out.println(resposta);
+
+        } while (opcao != 4);
 
         scanner.close();
+        System.out.println("Aplicação encerrada.");
     }
 }
